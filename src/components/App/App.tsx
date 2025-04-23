@@ -9,20 +9,11 @@ import css from './App.module.css';
 import ErrorMessage from '../ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
+import { ImageItem } from '../../types';
 
-interface ImageItem {
-  id: string;
-  urls: {
-    small: string;
-    regular: string;
-  };
-  alt_description: string;
-}
 
-interface ImageCardProp {
-  item: ImageItem;
-  onClick: () => void;
-}
+
+
 
 export default function App() {
   const [images, setImages] = useState<ImageItem[]>([]);

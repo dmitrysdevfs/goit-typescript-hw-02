@@ -1,10 +1,16 @@
+import { ImageItem } from '../../types';
 import css from './ImageCard.module.css';
 
-export default function ImageCard({ item, onClick }) {
+interface ImageCardProps {
+  item: ImageItem;
+  onClick: (event: React.MouseEvent<HTMLImageElement>, item: ImageItem) => void;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ item, onClick }) => {
   return (
     <div className={css.wrapper}>
       <img
-        onClick={onClick}
+        onClick={(event) => onClick(event, item)}
         src={item.urls.small}
         alt={item.alt_description}
         className={css.img}
@@ -12,3 +18,5 @@ export default function ImageCard({ item, onClick }) {
     </div>
   );
 }
+
+export default ImageCard;
