@@ -10,32 +10,46 @@ import ErrorMessage from '../ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 
+interface ImageItem {
+  id: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  alt_description: string;
+}
+
+interface ImageCardProp {
+  item: ImageItem;
+  onClick: () => void;
+}
+
 export default function App() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<ImageItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
 
-  const handleImageClick = image => {
+  const handleImageClick = (image: ImageItem): void => {
     setSelectedImage(image);
     setIsOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setIsOpen(false);
     setSelectedImage(null);
   };
 
-  const prevImagesLengthRef = useRef(0);
+  const prevImagesLengthRef = useRef<number>(0);
 
-  const loadMoreBtnRef = useRef(null);
+  const loadMoreBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  const handleSubmit = topic => {
+  const handleSubmit = (topic: string) => {
     if (topic === searchTerm) {
       return;
     }
@@ -45,7 +59,7 @@ export default function App() {
     setTotalPages(0);
   };
 
-  const handleLoadMoreClick = () => {
+  const handleLoadMoreClick = (): void => {
     prevImagesLengthRef.current = images.length;
     setPage(page + 1);
   };
@@ -76,7 +90,7 @@ export default function App() {
         const { results, total_pages } = response;
 
         if (!results || results.length === 0) {
-          toast.info('No results found for your search. Try a different term.');
+          toast.error('No results found for your search. Try a different term.');
           setLoading(false);
           return;
         }

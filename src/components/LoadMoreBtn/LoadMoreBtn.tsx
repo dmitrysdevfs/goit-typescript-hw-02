@@ -1,7 +1,11 @@
 import React from 'react';
 import css from './LoadMoreBtn.module.css';
 
-const LoadMoreBtn = React.forwardRef(function LoadMoreBtn({ onClick }, ref) {
+interface LoadMoreBtnProps {
+  onClick: () => void;
+}
+
+const LoadMoreBtn = React.forwardRef<HTMLButtonElement, LoadMoreBtnProps>(function LoadMoreBtn({ onClick }, ref) {
   return (
     <div>
       <button ref={ref} onClick={onClick} className={css.button}>
