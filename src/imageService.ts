@@ -1,15 +1,27 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { ExtendedImageItem } from './types';
 
-export const fetchImages = async (topic, currentPage) => {
-  const response = await axios.get(`https://api.unsplash.com/search/photos`, {
-    params: {
-      client_id: 'CcDn3vQvUoDUocIcHEm7UUPlG03xSG4EfZsxFm86iCI',
-      query: topic,
-      orientation: 'landscape',
-      per_page: 12,
-      page: currentPage,
-    },
-  });
+interface UnsplashResponse {
+  results: ExtendedImageItem[];
+  total_pages: number;
+}
+
+export const fetchImages = async (
+  topic: string,
+  currentPage: number
+): Promise<UnsplashResponse> => {
+  const response: AxiosResponse<UnsplashResponse> = await axios.get(
+    `https://api.unsplash.com/search/photos`,
+    {
+      params: {
+        client_id: 'CcDn3vQvUoDUocIcHEm7UUPlG03xSG4EfZsxFm86iCI',
+        query: topic,
+        orientation: 'landscape',
+        per_page: 12,
+        page: currentPage,
+      },
+    }
+  );
 
   return {
     results: response.data.results,
