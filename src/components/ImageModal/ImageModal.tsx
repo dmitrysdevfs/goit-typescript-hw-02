@@ -1,10 +1,17 @@
 import ReactModal from 'react-modal';
 
 import css from './ImageModal.module.css';
+import { ImageItem } from '../../types';
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement('#modal-root');
 
-export default function ImageModal({ isOpen, onRequestClose, imageData }) {
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: (event: React.MouseEvent<Element> | React.KeyboardEvent<Element>) => void;
+  imageData: ImageItem | null;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onRequestClose, imageData }) => {
   if (!imageData) return null;
 
   // Destructuring imageDate
@@ -114,3 +121,5 @@ export default function ImageModal({ isOpen, onRequestClose, imageData }) {
     </ReactModal>
   );
 }
+
+export default ImageModal;

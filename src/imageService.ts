@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import { ExtendedImageItem } from './types';
+import { ImageItem } from './types';
 
 interface UnsplashResponse {
-  results: ExtendedImageItem[];
+  results: ImageItem[];
   total_pages: number;
 }
 

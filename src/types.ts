@@ -5,9 +5,8 @@ export interface ImageItem {
     regular: string;
   };
   alt_description: string;
-}
 
-export interface ExtendedImageItem extends ImageItem {
+  // data for Modal
   likes: number;
   created_at: string;
   user: {
